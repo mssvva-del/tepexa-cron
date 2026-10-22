@@ -1,8 +1,8 @@
-# Every ~15 minutes: pull comments and DMs for all Tepexa clients, the AI agent answers the simple ones.
+# Every hour (at :23): pull comments and DMs for all Tepexa clients, the AI agent answers the simple ones.
 name: tepexa-inbox
 on:
   schedule:
-    - cron: '7,22,37,52 * * * *'
+    - cron: '23 * * * *'
   workflow_dispatch: {}
 jobs:
   inbox:
