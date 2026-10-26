@@ -1,0 +1,16 @@
+# Every 15 minutes: the "did not pay" chain of Tepexa (Telegram card + WhatsApp text, emails at +1 h and +72 h).
+name: tepexa-followup
+on:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch: {}
+jobs:
+  followup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Run follow-ups
+        run: |
+          code=$(curl -s -o out.json -w '%{http_code}' -m 120 -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" "https://reels.tepexa.com/api/inbox?only=followup")
+          echo "HTTP $code"; cat out.json; echo
+          test "$code" = 200
